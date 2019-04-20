@@ -1,0 +1,71 @@
+from collections import namedtuple
+
+Student = namedtuple('Student', ['name', 'major', 'year', 'id', 'gpa'])
+
+def makeStudent(student_list):
+    # Put your implementation from 3.21 here
+    name    = input()
+    major   = input()
+    year    = int(input())
+    id      = int(input())
+    gpa     = float(input())
+    Stu = Student(name, major, year, id, gpa)
+    student_list.append(Stu)
+    pass
+
+def setGPA(student, val):           #student is a single Student namedtuple, val is a float.
+    
+    student = student._replace(gpa = val)
+    return student                            #The function sets the student's gpa = val and returns the student
+def setMajor(student, val):         #Same as setGPA except val is a string. 
+    student = student._replace(major = val)
+    return student                            #The function sets the student's major = val and returns the student
+def setYear(student, val):          #Same as setMajor except val is an int. 
+    student = student._replace(year = val)
+    return student                            #The function sets the student's year = val and returns the student
+def averageGPA(student_list):       #student_list is the list of Student namedtuples. 
+    total_gpa   = 0
+    count       = 0
+    for i in range(len(student_list)):
+        temp = student_list[i]
+        GPA = temp.gpa
+        total_gpa = total_gpa + GPA
+        count = count + 1
+    average_gpa = total_gpa / count
+    return average_gpa              #The function returns the average gpa of the students.
+def getTopStudentGPA(student_list): #student_list is the list of Student namedtuples. 
+    highest_gpa = 0
+    for i in range(len(student_list)):
+        temp = student_list[i]
+        GPA = temp.gpa
+        if GPA >= highest_gpa:
+            highest_gpa = GPA
+    return highest_gpa              #The function returns the highest gpa of the students in student_list.
+# Write other functions here (above)^
+if __name__ == "__main__":      # Put other code from 3.21 here and make the proper function calls and print statements to extend it
+    student_list = []
+    Stu_1 = Student('Kenneth', 'Computer Science', 6, 987654321, 3.8)  
+    Stu_2 = Student('Maegan', 'Neuroscience', 4, 123456789, 3.4)  
+    # add Kenneth and Maegan to the list
+    student_list.append(Stu_1)
+    student_list.append(Stu_2)
+    # print(list)
+    makeStudent(student_list)
+    makeStudent(student_list)
+    makeStudent(student_list)
+    print(student_list)
+    for i in range(len(student_list)):
+        if i % 2 == 1:
+            print(student_list[i])
+    print(averageGPA(student_list))
+    print(getTopStudentGPA(student_list))
+    # make changes to maegan's gpa, major and year
+    Stu_2 = setGPA(Stu_2, 4.0)                              #Stu_2 = Stu_2._replace(gpa = 4.0)
+    Stu_2 = setMajor(Stu_2, 'Computational Neuroscience')   #Stu_2 = Stu_2._replace(major = 'Computational Neuroscience')
+    Stu_2 = setYear(Stu_2, 5)                               #Stu_2 = Stu_2._replace(year = 5)
+    # Update the student_list
+    student_list[1] = Stu_2
+    # Repeat step 3
+    print(averageGPA(student_list))
+    print(getTopStudentGPA(student_list))
+    pass
